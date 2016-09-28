@@ -1,0 +1,29 @@
+{
+    "variables": {
+    },
+    "builders": [{
+	"headless":"false",
+        "type": "virtualbox-iso",
+        "guest_os_type": "RedHat_64",
+        "iso_url": "CentOS-7-x86_64-Minimal-1511.iso",
+        "iso_checksum": "88c0437f0a14c6e2c94426df9d43cd67",
+        "iso_checksum_type": "none",
+        "ssh_username": "packer",
+        "ssh_password": "packer",
+        "ssh_wait_timeout": "600s",
+        "vm_name": "centos7",
+        "http_directory": "./",
+        "boot_wait": "10s",
+        "boot_command": [
+            "<esc><wait>",
+            "linux ks=http://{{.HTTPIP}}:{{.HTTPPort}}/ks7.cfg",
+            "<enter><wait>"
+        ],
+        "shutdown_command": "echo 'packer' |sudo -S shutdown -P now",
+        "vboxmanage": [
+            ["modifyvm", "{{.Name}}", "--memory", "512"],
+            ["modifyvm", "{{.Name}}", "--usb", "off"],
+            ["modifyvm", "{{.Name}}", "--audio", "none"]
+        ]
+    }]
+}
