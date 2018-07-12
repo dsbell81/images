@@ -1,1 +1,6 @@
+packer_cache/
 *.iso
+*.exe
+*.ovf
+*.vmdk
+*.box
