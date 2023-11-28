@@ -1,0 +1,44 @@
+{
+    "builders": [
+      {
+        "boot_command": [
+            "<esc><wait>",
+            "linux inst.ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/Rocky/ks9.cfg",
+            "<enter><wait>"
+        ],
+        "boot_wait": "5s",
+        "guest_os_type": "RedHat_64",
+        "headless": "false",
+        "http_directory": "./",
+        "iso_checksum": "sha256:06505828e8d5d052b477af5ce62e50b938021f5c28142a327d4d5c075f0670dc",
+        "iso_url": "Rocky/Rocky-9.2-x86_64-minimal.iso",
+        "shutdown_command": "echo 'packer' |sudo -S shutdown -P now",
+        "ssh_password": "packer",
+        "ssh_timeout": "600s",
+        "ssh_username": "packer",
+        "type": "virtualbox-iso",
+        "vboxmanage": [
+          [
+            "modifyvm",
+            "{{.Name}}",
+            "--memory",
+            "2048"
+          ],
+          [
+            "modifyvm",
+            "{{.Name}}",
+            "--cpus",
+            "2"
+          ],
+          [
+            "modifyvm",
+            "{{.Name}}",
+            "--nat-localhostreachable1",
+            "on"
+          ]
+        ],
+        "vm_name": "rocky9"
+      }
+    ],
+    "variables": {}
+  }
