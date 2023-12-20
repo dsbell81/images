@@ -1,0 +1,44 @@
+{
+    "builders": [
+      {
+        "boot_command": [
+            "<esc><wait>",
+            "linux inst.ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/RHEL/ks8.cfg",
+            "<enter><wait>"
+        ],
+        "boot_wait": "5s",
+        "guest_os_type": "RedHat_64",
+        "headless": "false",
+        "http_directory": "./",
+        "iso_checksum": "sha256:C4FD0632CE15A7D56E1D174176456943BD48306F9D35BCECBCB0A1DC49088E23",
+        "iso_url": "RHEL/rhel-8.9-x86_64-dvd.iso",
+        "shutdown_command": "echo 'packer' |sudo -S shutdown -P now",
+        "ssh_password": "packer",
+        "ssh_timeout": "600s",
+        "ssh_username": "packer",
+        "type": "virtualbox-iso",
+        "vboxmanage": [
+          [
+            "modifyvm",
+            "{{.Name}}",
+            "--memory",
+            "2048"
+          ],
+          [
+            "modifyvm",
+            "{{.Name}}",
+            "--cpus",
+            "2"
+          ],
+          [
+            "modifyvm",
+            "{{.Name}}",
+            "--nat-localhostreachable1",
+            "on"
+          ]
+        ],
+        "vm_name": "rhel8"
+      }
+    ],
+    "variables": {}
+  }
